@@ -17,13 +17,12 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-        set(value) {
+        set(password) {
           /// CRYPT PASSWORD
-          const hash = bcrypt.hashSync(value, 10);
+          const hash = bcrypt.hashSync(password, 10);
           this.setDataValue("password", hash);
         },
       },
-      avatar: { type: DataTypes.STRING },
     },
     {}
   );

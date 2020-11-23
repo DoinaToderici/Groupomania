@@ -8,7 +8,6 @@ router.post("/signup", users.createUser);
 router.post("/login", users.connectUser);
 
 router.get("/:userId", auth, users.getUserById);
-router.put("/:userId", auth, users.updateUser);
 router.delete("/:userId", auth, users.deleteUser);
 
 // TO DO: to delete

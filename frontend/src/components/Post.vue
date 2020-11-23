@@ -2,56 +2,77 @@
   <div class="container" id="single-post">
     <div class="post">
       <h1 class="title">{{ post.title }}</h1>
-       <p class="articles-datas">
-          <span class="author-name">Ecrit par <b><em>{{ post.author.firstName }} {{ post.author.lastName }}</em></b></span>,
-          {{ formatDate(post.createdAt) }}
-        </p>
+      <p class="articles-datas">
+        <span class="author-name"
+          >Ecrit par
+          <b
+            ><em>{{ post.author.firstName }} {{ post.author.lastName }}</em></b
+          ></span
+        >,
+        {{ formatDate(post.createdAt) }}
+      </p>
       <p>{{ post.content }}</p>
 
-        <div v-if="userId == post.userId || isAdmin">
-      <button
-        type="button"
-        class="btn cta-primary"
-        data-toggle="modal"
-        data-target="#exampleModal"
-      >
-        Modifier
-      </button>
-      <button @click="removePost(post.id)" 
-      class="btn-danger btn">Supprimer</button>
-    </div>
-    
+      <div v-if="userId == post.userId || isAdmin">
+        <button
+          type="button"
+          class="btn cta-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          Modifier
+        </button>
+        <button @click="removePost(post.id)" class="btn-danger btn">
+          Supprimer
+        </button>
+      </div>
     </div>
     <div v-if="post.comments.length" class="mt-5">
       <h4><b>Commentaires</b></h4>
-      <hr>
-      <div v-for="comment in post.comments" v-bind:key="comment.id" class="comment">
-        <p><font-awesome-icon icon="user" class="icon-user"/><span>{{comment.author.firstName}} {{comment.author.lastName}}</span>
+      <hr />
+      <div
+        v-for="comment in post.comments"
+        v-bind:key="comment.id"
+        class="comment"
+      >
+        <p>
+          <font-awesome-icon icon="user" class="icon-user" /><span
+            >{{ comment.author.firstName }} {{ comment.author.lastName }}</span
+          >
         </p>
-         <p class="data">
+        <p class="data">
           {{ formatDate(comment.createdAt) }}
         </p>
-        <p class="content-comment"><em>{{ comment.content }}</em></p>
-          <button v-if="userId == comment.userId" class="btn-danger btn" @click="removeComment(comment.id)">Supprimer</button>
-        <hr>
+        <p class="content-comment">
+          <em>{{ comment.content }}</em>
+        </p>
+        <button
+          v-if="userId == comment.userId"
+          class="btn-danger btn"
+          @click="removeComment(comment.id)"
+        >
+          Supprimer
+        </button>
+        <hr />
       </div>
     </div>
 
-   <div class="mt-5 mb-5 create-comment-box">
-      
-    <label for="comment-section"><b>Commenter</b></label>
-    <textarea
-      name="commentContent"
-      id="comment-section"
-      class="col-lg-6 col-md-12 form-control"
-      cols="84"
-      rows="5"
-      v-model="newComment.content"
-      @keyup="resetErrors"
-    ></textarea >
-    <button @click="addComment" class="cta-success btn">Ajouter commentaire</button>
-    <p class="message-error">{{message}}</p>
-   </div>
+    <div class="mt-5 mb-5 create-comment-box">
+      <label for="comment-section"><b>Commenter</b></label>
+      <textarea
+        name="commentContent"
+        id="comment-section"
+        class="col-lg-6 col-md-12 form-control"
+        cols="84"
+        rows="5"
+        v-model="newComment.content"
+        @keyup="resetErrors"
+      ></textarea>
+      <button @click="addComment" class="cta-success btn">
+        Ajouter commentaire
+      </button>
+      <p class="message-error">{{ message }}</p>
+    </div>
 
     <!-- Modal -->
     <div
@@ -66,7 +87,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <label for="post-title">Titre article</label>
-            <textarea name="post-title" id="post-title" class="form-control" v-model="post.title"></textarea>
+            <textarea
+              name="post-title"
+              id="post-title"
+              class="form-control"
+              v-model="post.title"
+            ></textarea>
             <button
               type="button"
               class="close"
@@ -79,7 +105,7 @@
           <div class="modal-body flex-sirection column">
             <label for="content-post">Contenue article</label>
             <textarea
-            id="content-post"
+              id="content-post"
               name="post-content"
               class="form-control"
               v-model="post.content"
@@ -111,7 +137,7 @@ export default {
     return {
       post: {
         author: {},
-        comments: []
+        comments: [],
       },
       newComment: {
         id: null,
@@ -124,8 +150,8 @@ export default {
       isAdmin: false,
       errors: {
         content: "",
-        },
-      message: ""
+      },
+      message: "",
     };
   },
   methods: {
@@ -145,20 +171,20 @@ export default {
       let data = {
         title: this.post.title,
         content: this.post.content,
-        userId: this.post.userId
+        userId: this.post.userId,
       };
 
       PostDataService.update(id, data)
         .then((response) => {
           this.post.id = response.data.id;
           this.submitted = true;
-          window.location.reload()
+          window.location.reload();
         })
         .catch(() => {
           console.log("error");
         });
     },
-     removePost(id) {
+    removePost(id) {
       PostDataService.delete(id)
         .then(() => {
           this.$router.push("/posts");
@@ -175,21 +201,19 @@ export default {
       };
       if (data.content.length !== 0) {
         CommentDataService.create(data).then((response) => {
-        this.submitted = true;
-        console.log(response);
-        window.location.reload()
-      });
+          this.submitted = true;
+          console.log(response);
+          window.location.reload();
+        });
       } else {
-        this.message = "Veuillez introduire votre texte"
+        this.message = "Veuillez introduire votre texte";
       }
-      
     },
     removeComment(id) {
       CommentDataService.delete(id)
         .then((response) => {
           console.log(response.data);
-          window.location.reload()
-
+          window.location.reload();
         })
         .catch((e) => {
           console.log(e);
@@ -204,8 +228,8 @@ export default {
       });
     },
     resetErrors() {
-      this.message = ""
-    }
+      this.message = "";
+    },
   },
 
   mounted() {
@@ -222,7 +246,7 @@ export default {
 #single-post {
   .post {
     padding: 2rem;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     border-radius: 10px;
     margin-top: 4rem;
     background-color: aliceblue;
@@ -230,20 +254,20 @@ export default {
     font-size: 1.3rem;
 
     @media (max-width: 426px) {
-       padding: 1rem;
-      }
+      padding: 1rem;
+    }
 
     h1 {
       font-size: 3rem;
     }
   }
   .btn {
-    font-size: .8rem;
+    font-size: 0.8rem;
     margin-top: 1rem;
 
     &:first-child {
-    margin-right: 1rem;
-  }
+      margin-right: 1rem;
+    }
   }
   hr {
     margin: 2rem 0;
@@ -253,8 +277,8 @@ export default {
     .icon-user {
       font-size: 1.5rem;
       color: $darck-grey;
-      margin-right: .5rem;
-      margin-bottom: .2rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.2rem;
     }
     .author-comment {
       font-size: 1rem;
@@ -262,7 +286,7 @@ export default {
     }
 
     .content-comment {
-      font-size: .7rem;
+      font-size: 0.7rem;
     }
   }
 
@@ -270,10 +294,10 @@ export default {
     font-size: 1.5rem;
   }
 
-   .message-error {
-      color: red;
-      font-size: .8rem;
-      margin: 1rem 0 0;
-    }
+  .message-error {
+    color: red;
+    font-size: 0.8rem;
+    margin: 1rem 0 0;
+  }
 }
 </style>

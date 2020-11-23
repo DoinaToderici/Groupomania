@@ -1,20 +1,33 @@
 <template>
   <div id="user-page">
-    <h1>
-      Salut {{ user.firstName }} {{ user.lastName }}<br />
-    </h1>
+    <h1>Salut {{ user.firstName }} {{ user.lastName }}<br /></h1>
     <h2>Voici vos données:</h2>
     <div class="col-lg-8 col-md-12 offset-lg-2 user-data">
-      <p class="row"><span class="col-lg-6 col-4">Nom :</span><span class="col-lg-6 col-8"><em>{{user.firstName}}</em></span></p>
-      <p class="row"><span class="col-lg-6 col-4">Prénom :  </span><span class="col-lg-6 col-8"><em>{{user.lastName}}</em></span></p>
-      <p class="row"><span class="col-lg-6 col-4">Email :  </span><span class="col-lg-6 col-8"><em>{{user.email}}</em></span></p>
-     </div>
-       <button
-        class="btn btn-danger d-flex"
-        type=""
-        @click="removeUser($event, user.id)"
-      >
-        Supprimer mon compte
+      <p class="row">
+        <span class="col-lg-6 col-4">Nom :</span
+        ><span class="col-lg-6 col-8"
+          ><em>{{ user.firstName }}</em></span
+        >
+      </p>
+      <p class="row">
+        <span class="col-lg-6 col-4">Prénom : </span
+        ><span class="col-lg-6 col-8"
+          ><em>{{ user.lastName }}</em></span
+        >
+      </p>
+      <p class="row">
+        <span class="col-lg-6 col-4">Email : </span
+        ><span class="col-lg-6 col-8"
+          ><em>{{ user.email }}</em></span
+        >
+      </p>
+    </div>
+    <button
+      class="btn btn-danger d-flex"
+      type=""
+      @click="removeUser($event, user.id)"
+    >
+      Supprimer mon compte
     </button>
   </div>
 </template>
@@ -36,7 +49,7 @@ export default {
       },
       submitted: false,
       readonly: true,
-      theme: ""
+      theme: "",
     };
   },
   methods: {
@@ -46,14 +59,14 @@ export default {
       AuthentificationDataService.getProfilUser(id)
         .then((response) => {
           this.user = response.data.user;
-          console.log(this.user.password );
+          console.log(this.user.password);
         })
         .catch((e) => {
           console.log(e);
         });
     },
     removeUser(e, id) {
-      e.preventDefault()
+      e.preventDefault();
       AuthentificationDataService.deleteUser(id)
         .then(() => {
           localStorage.removeItem("userId");
@@ -77,27 +90,27 @@ export default {
 
 #user-page {
   background-color: #f9f8f8;
-    box-shadow: 0 45px 55px -35px #3a5275;
-    padding: 2rem;
-    border-radius: 10px;
-    margin: 2rem 0 4rem;
+  box-shadow: 0 45px 55px -35px #3a5275;
+  padding: 2rem;
+  border-radius: 10px;
+  margin: 2rem 0 4rem;
 
-@media (max-width: 426px) {
-  padding: .5rem;
-      }
+  @media (max-width: 426px) {
+    padding: 0.5rem;
+  }
 
-h1 {
-  margin: 2rem 0;
-  text-align: center;
-}
+  h1 {
+    margin: 2rem 0;
+    text-align: center;
+  }
 
-h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-}
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 
-.user-data {
-  background-color: white;
+  .user-data {
+    background-color: white;
     padding: 1rem;
     border: 1px solid grey;
     border-radius: 5px;
@@ -105,29 +118,28 @@ h2 {
     p {
       font-size: 1.2rem;
 
-  @media (max-width: 426px) {
-    font-size: 1rem;
+      @media (max-width: 426px) {
+        font-size: 1rem;
       }
 
-  @media (max-width: 320px) {
-    font-size: .8rem;
+      @media (max-width: 320px) {
+        font-size: 0.8rem;
       }
- 
-  
-  span {
-    &:first-child {
-      text-align: right;
+
+      span {
+        &:first-child {
+          text-align: right;
+        }
+        &:nth-child(2) {
+          //font-style: oblique;
+          font-weight: 700;
+        }
+      }
     }
-    &:nth-child(2) {
-    //font-style: oblique;
-    font-weight: 700;  }
+  }
+
+  .btn {
+    margin: 2rem auto;
   }
 }
-}
-
-.btn {
- margin: 2rem auto;
-}
-}
-
 </style>

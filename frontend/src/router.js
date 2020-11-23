@@ -24,6 +24,14 @@ let router = new Router({
       component: () => import("./components/User"),
     },
     {
+      path: "/",
+      name: "posts",
+      component: () => import("./components/PostsList"),
+      meta: {
+        guest: true,
+      },
+    },
+    {
       path: "/posts",
       name: "posts",
       component: () => import("./components/PostsList"),

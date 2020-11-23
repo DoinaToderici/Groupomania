@@ -1,4 +1,4 @@
-const models = require("../models");
+const models = require("../models/index");
 const faker = require("faker");
 
 const createPost = async (req, res) => {
@@ -14,7 +14,7 @@ const createPost = async (req, res) => {
 
 const getAllPosts = async (req, res) => {
   const offset = req.query.page === 1 ? 0 : req.query.page * 5 - 5;
-  
+
   try {
     const posts = await models.Post.findAndCountAll({
       include: [
@@ -71,9 +71,11 @@ const getPostById = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     const { postId } = req.params;
-    const [updated] = await models.Post.update(req.body, {
+    const response = await models.Post.update(req.body, {
       where: { id: postId },
     });
+
+    const updated = response[0];
 
     if (updated) {
       const updatedPost = await models.Post.findOne({ where: { id: postId } });
@@ -92,9 +94,7 @@ const deletePost = async (req, res) => {
     const deleted = await models.Post.destroy({
       where: { id: postId },
     });
-
     if (deleted) {
-      console.log("delete");
       return res.status(204).json({ message: "Post deleted" });
     }
     throw new Error("Post not found");

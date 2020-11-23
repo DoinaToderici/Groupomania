@@ -1,8 +1,6 @@
 <template>
-  <form
-    class="form-connexion"
-  >
-    <h1 style="text-align: center; margin-bottom: 4rem;">
+  <form class="form-connexion">
+    <h1 style="text-align: center; margin-bottom: 4rem">
       Bienvenue sur Groupama.
     </h1>
 
@@ -19,7 +17,7 @@
           required
           @keyup="resetErrors"
         />
-        <p class="error-message">{{errors.firstName}}</p>
+        <p class="error-message">{{ errors.firstName }}</p>
       </div>
       <div class="mb-3">
         <label for="lastName">Nom</label>
@@ -33,42 +31,40 @@
           required
           @keyup="resetErrors"
         />
-        <p class="error-message">{{errors.lastName}}</p>
+        <p class="error-message">{{ errors.lastName }}</p>
       </div>
       <div class="mb-3">
         <label for="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            v-model="user.email"
-            type="email"
-            class="form-control"
-            placeholder="Ex: alexandre.dupon@gmail.com"
-            required 
-            @keyup="resetErrors"
-          />
-          <p class="error-message">{{errors.email}}</p>
-
-      
+        <input
+          id="email"
+          name="email"
+          v-model="user.email"
+          type="email"
+          class="form-control"
+          placeholder="Ex: alexandre.dupon@gmail.com"
+          required
+          @keyup="resetErrors"
+        />
+        <p class="error-message">{{ errors.email }}</p>
       </div>
       <div class="mb-3">
         <label for="password">Mot de passe</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            pattern="[A-Za-z]"
-            minlength="8"
-            class="form-control"
-            v-model="user.password"
-            placeholder=""
-            required
-            @keyup="resetErrors"
-          />
-          <p class="error-message">{{errors.password}}</p>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          pattern="[A-Za-z]"
+          minlength="8"
+          class="form-control"
+          v-model="user.password"
+          placeholder=""
+          required
+          @keyup="resetErrors"
+        />
+        <p class="error-message">{{ errors.password }}</p>
       </div>
       <button
-        class="d-flex justify-content-center  m-auto col-lg-3 col-md-4 col-sm-12 btn cta-primary"
+        class="d-flex justify-content-center m-auto col-lg-3 col-md-4 col-sm-12 btn cta-primary"
         @click="createUser"
       >
         Connexion
@@ -79,7 +75,7 @@
 
 <script>
 import AuthentificationDataService from "../services/AuthentificationDataService";
-import validator from 'validator'
+import validator from "validator";
 
 export default {
   name: "Register",
@@ -91,11 +87,11 @@ export default {
         email: "",
         password: "",
       },
-       errors: {
+      errors: {
         email: "",
         password: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
       },
 
       submitted: true,
@@ -103,30 +99,30 @@ export default {
   },
   methods: {
     validateUserData() {
-      const errors = {}
+      const errors = {};
       if (this.user.email.length === 0 || !validator.isEmail(this.user.email)) {
-        errors.email = 'Veuillez renseigner un email'
-      } 
+        errors.email = "Veuillez renseigner un email";
+      }
 
       if (this.user.password.length === 0) {
-         errors.password = 'Veuillez renseigner un mot de passe'
+        errors.password = "Veuillez renseigner un mot de passe";
       }
       if (this.user.firstName.length === 0) {
-         errors.firstName = 'Veuillez renseigner votre prenom'
+        errors.firstName = "Veuillez renseigner votre prenom";
       }
       if (this.user.lastName.length === 0) {
-         errors.lastName = 'Veuillez renseigner votre nom'
+        errors.lastName = "Veuillez renseigner votre nom";
       }
 
-      return errors
+      return errors;
     },
     createUser(event) {
       event.preventDefault();
 
-      const errors = this.validateUserData()
+      const errors = this.validateUserData();
       if (Object.keys(errors).length) {
-        this.errors = errors
-        return
+        this.errors = errors;
+        return;
       }
 
       const data = {
@@ -145,9 +141,9 @@ export default {
           console.log("error", error);
         });
     },
-  resetErrors(e) {
-      this.errors[e.target.name] = ""
-    }
+    resetErrors(e) {
+      this.errors[e.target.name] = "";
+    },
   },
 };
 </script>
@@ -155,14 +151,9 @@ export default {
 <style lang="scss">
 @import "../assets/custom.scss";
 
- .error-message {
-  font-size: .8rem;
+.error-message {
+  font-size: 0.8rem;
   font-weight: bold;
-    color: red;
-  }
-
-
-
-
+  color: red;
+}
 </style>
-

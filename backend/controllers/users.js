@@ -38,7 +38,6 @@ const createUser = async (req, res) => {
   }
 };
 
-
 const connectUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -54,34 +53,13 @@ const connectUser = async (req, res) => {
           token: jwt.sign(
             { userId: user.id, role: user.role },
             process.env.SECRET_KEY,
-            {
-              expiresIn: "24h",
-            }
+            { expiresIn: "24h" }
           ),
         });
       }
       throw new Error("Password doesn't match");
     }
-
-    return res
-      .status(404)
-      .send("User with the specified email does not exists");
-  } catch (error) {
-    return res.status(500).send(error.message);
-  }
-};
-
-const updateUser = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const [updated] = await models.User.update(req.body, {
-      where: { id: userId },
-    });
-    if (updated) {
-      const updatedUser = await models.User.findOne({ where: { id: userId } });
-      return res.status(200).json({ user: updatedUser });
-    }
-    throw new Error("user not found");
+    throw new Error("User with the specified email does not exists");
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -93,7 +71,7 @@ const deleteUser = async (req, res) => {
     const deleted = await models.User.destroy({
       where: { id: userId },
     });
-    console.log(deleted);
+
     if (deleted) {
       return res.status(200).send("User deleted");
     }
@@ -131,6 +109,5 @@ module.exports = {
   connectUser,
   createFakeUser,
   getUserById,
-  updateUser,
   deleteUser,
 };

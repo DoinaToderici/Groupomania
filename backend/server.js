@@ -7,10 +7,8 @@ const posts = require("./routes/posts");
 const users = require("./routes/users");
 const comments = require("./routes/comments");
 
-// import DB
-const db = require("./models");
-
-//la creation des tableaux en utilisant les models
+//connexion avec BD
+const db = require("./models/index");
 db.sequelize.sync();
 
 //utilisation express
@@ -22,7 +20,7 @@ app.use(headers); //ajoutons des en-têtes à l'objet de réponse, afin que les 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//routes
+//routes (static + dynamic)
 app.use("/api/posts", posts);
 app.use("/api/users", users);
 app.use("/api/comments", comments);

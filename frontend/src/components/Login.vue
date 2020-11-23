@@ -18,7 +18,7 @@
             @keyup="resetErrors"
           />
         </div>
-        <p class="error-message">{{errors.email}}</p>
+        <p class="error-message">{{ errors.email }}</p>
       </div>
       <div class="mb-3">
         <div class="form-group">
@@ -35,11 +35,15 @@
               @keyup="resetErrors"
             />
           </div>
-          <p class="error-message">{{errors.password}}</p>
+          <p class="error-message">{{ errors.password }}</p>
         </div>
       </div>
-      <p class="message">{{message}}</p>
-      <button class="d-flex justify-content-center m-auto col-lg-3 col-md-4 col-sm-12 btn cta-success" type="submit" @click="login">
+      <p class="message">{{ message }}</p>
+      <button
+        class="d-flex justify-content-center m-auto col-lg-3 col-md-4 col-sm-12 btn cta-success"
+        type="submit"
+        @click="login"
+      >
         Connexion
       </button>
     </div>
@@ -48,7 +52,7 @@
 
 <script>
 import AuthentificationDataService from "../services/AuthentificationDataService";
-import validator from "validator"
+import validator from "validator";
 
 export default {
   name: "Login",
@@ -62,7 +66,7 @@ export default {
       errors: {
         email: "",
         password: "",
-        },
+      },
       loggedIn: false,
       submitted: true,
       message: "",
@@ -70,28 +74,28 @@ export default {
   },
   methods: {
     validateUserData() {
-      const errors = {}
+      const errors = {};
       if (this.user.email.length === 0) {
-        errors.email = 'Veuillez renseigner un email'
-      } 
-
-      console.log(validator.isEmail(this.user.email));
-      if( this.user.email.length !== 0 && !validator.isEmail(this.user.email)) {
-        errors.email = 'Veuillez introduire une adresse email correct'
-      } 
-
-      if (this.user.password.length === 0) {
-         errors.password = 'Veuillez renseigner un mot de passe'
+        errors.email = "Veuillez renseigner un email";
       }
 
-      return errors
+      console.log(validator.isEmail(this.user.email));
+      if (this.user.email.length !== 0 && !validator.isEmail(this.user.email)) {
+        errors.email = "Veuillez introduire une adresse email correct";
+      }
+
+      if (this.user.password.length === 0) {
+        errors.password = "Veuillez renseigner un mot de passe";
+      }
+
+      return errors;
     },
     login(event) {
       event.preventDefault();
-      const errors = this.validateUserData()
+      const errors = this.validateUserData();
       if (Object.keys(errors).length) {
-        this.errors = errors
-        return
+        this.errors = errors;
+        return;
       }
 
       const data = {
@@ -118,9 +122,8 @@ export default {
         });
     },
     resetErrors(e) {
-      this.errors[e.target.name] = ""
-    }
-    
+      this.errors[e.target.name] = "";
+    },
   },
 };
 </script>
@@ -133,8 +136,8 @@ export default {
 }
 
 .error-message {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: bold;
   color: red;
-  }
+}
 </style>

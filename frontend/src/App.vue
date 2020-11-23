@@ -1,21 +1,27 @@
 <template>
   <div id="app">
     <nav class="navbar-expand navbar row">
-     <div class="col-lg-3 col-sm-6 navbar-logo">
-        <router-link to="/posts" class="logo-link">
-        <img src="../public/icon-left-font-monochrome-black.svg" alt="logo de l'entreprise"  />
-      </router-link>
-     </div>
+      <div class="col-lg-3 col-sm-6 navbar-logo">
+        <router-link to="/" class="logo-link">
+          <img
+            src="../public/icon-left-font-monochrome-black.svg"
+            alt="logo de l'entreprise"
+          />
+        </router-link>
+      </div>
       <div class="navbar-nav mr-auto col-lg-9 col-sm-12">
         <li class="nav-item" v-if="isLogged">
-          <router-link to="/posts" class="nav-link btn-2"> 
-          <svg>
-          <rect x="0" y="0" fill="none" width="100%" height="100%"/>
-          </svg>
-      Articles</router-link>
+          <router-link to="/posts" class="nav-link btn-2">
+            <svg>
+              <rect x="0" y="0" fill="none" width="100%" height="100%" />
+            </svg>
+            Articles</router-link
+          >
         </li>
         <li class="nav-item" v-if="isLogged">
-          <router-link to="/add-post" class="nav-link">Ajouter article</router-link>
+          <router-link to="/add-post" class="nav-link"
+            >Ajouter article</router-link
+          >
         </li>
         <li class="nav-item">
           <router-link to="/register" class="nav-link" v-if="!isLogged"
@@ -33,7 +39,7 @@
           >
         </li>
         <li class="nav-item d-flex align-items-center" v-if="isLogged">
-          <a class="nav-link"  @click="logout">Déconnexion</a>
+          <a class="nav-link" @click="logout">Déconnexion</a>
         </li>
       </div>
     </nav>
@@ -45,7 +51,6 @@
 </template>
 
 <script>
-
 export default {
   name: "app",
   data() {
@@ -80,10 +85,10 @@ export default {
 
 <style lang="scss">
 @import "./assets/custom.scss";
-  .container-fluid {
-    padding-top: 0!important;
-  }
-  #app {
+.container-fluid {
+  padding-top: 0 !important;
+}
+#app {
   font-family: $font-family-serif;
 
   .cta-success {
@@ -105,8 +110,8 @@ export default {
     top: 0;
     z-index: 1;
 
-   @media (max-width: 768px) {
-     flex-direction: column;
+    @media (max-width: 768px) {
+      flex-direction: column;
     }
 
     .navbar-logo {
@@ -115,10 +120,10 @@ export default {
       img {
         width: 70%;
 
-         @media (max-width: 768px) {
+        @media (max-width: 768px) {
           width: 60%;
           margin: 1rem 0;
-    }
+        }
       }
     }
 
@@ -127,7 +132,7 @@ export default {
 
       @media (max-width: 768px) {
         justify-content: center;
-        font-size: .8rem;
+        font-size: 0.8rem;
       }
 
       @media (max-width: 426px) {
@@ -135,54 +140,53 @@ export default {
         align-items: center;
       }
 
-      .nav-item {        
+      .nav-item {
         .nav-link {
-        color: $white;
-        margin: 0 1rem;
-        letter-spacing: 0;
+          color: $white;
+          margin: 0 1rem;
+          letter-spacing: 0;
 
-      @media (max-width: 426px) {
-       padding: 0;
-      }
+          @media (max-width: 426px) {
+            padding: 0;
+          }
 
-        svg {
-          width: 0;
-          height: 0;
+          svg {
+            width: 0;
+            height: 0;
+          }
+
+          &:after,
+          &:before {
+            backface-visibility: hidden;
+            border: 1px solid rgba(#fff, 0);
+            bottom: 0px;
+            content: " ";
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            transition: all 280ms ease-in-out;
+            width: 0;
+          }
+
+          &:hover:after,
+          &:hover:before {
+            border-color: #fff;
+            transition: width 350ms ease-in-out;
+            width: 100%;
+          }
+
+          &:focus:after,
+          &:focus:before {
+            border-color: #fff;
+            width: 100%;
+          }
+
+          &:hover:before {
+            bottom: auto;
+            top: 0;
+            width: 100%;
+          }
         }
-
-        &:after,
-        &:before {
-          backface-visibility: hidden;
-          border: 1px solid rgba(#fff, 0);
-          bottom: 0px;
-          content: " ";
-          display: block;
-          margin: 0 auto;
-          position: relative;
-          transition: all 280ms ease-in-out;
-          width: 0;
-        }
-
-        &:hover:after,
-        &:hover:before {
-          border-color: #fff;
-          transition: width 350ms ease-in-out;
-          width: 100%;
-        }
-
-        &:focus:after,
-        &:focus:before {
-          border-color: #fff;
-          width: 100%;
-        }
-
-        &:hover:before {
-          bottom: auto;
-          top: 0;
-          width: 100%;
-        }
-        
-      }
       }
     }
   }
@@ -220,8 +224,8 @@ export default {
     margin: 4rem 0;
 
     @media (max-width: 426px) {
-       padding: 1rem .5rem ;
-      }
+      padding: 1rem 0.5rem;
+    }
 
     &:hover {
       background: #fff;
@@ -248,7 +252,7 @@ export default {
     }
   }
 
-   .modal-content {
+  .modal-content {
     padding: 1.5rem;
     margin-top: 15rem;
 
@@ -265,7 +269,7 @@ export default {
         font-size: 1rem !important;
         position: absolute;
         right: 1rem;
-        top: -.2rem;
+        top: -0.2rem;
         padding: 0.5rem !important;
         margin-top: 0 !important;
         outline: none !important;
@@ -294,5 +298,4 @@ export default {
     }
   }
 }
-
 </style>
