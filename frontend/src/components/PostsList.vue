@@ -27,10 +27,10 @@
     </div>
     <ul class="pagination">
       <li
-        :class="n === page ? 'page-active' : 'page-inactive'"
-        v-for="n in Math.floor(postsCount / 5)"
+        v-for="n in pageNumbers"
         :key="n"
         @click="getPosts(n)"
+        :class="n === page ? 'page-active' : 'page-inactive'"
       >
         {{ n }}
       </li>
@@ -50,15 +50,18 @@ export default {
       isAdmin: false,
       postsCount: 0,
       page: 1,
+      pageNumbers: 0
     };
   },
   methods: {
     getPosts(page) {
       this.page = page;
+
       PostDataService.getAll(page)
         .then((response) => {
           this.posts = response.data.posts.rows;
           this.postsCount = response.data.posts.count;
+          this.pageNumbers = Math.ceil(response.data.posts.count / 5)
         })
         .catch((e) => {
           console.log("error", e);

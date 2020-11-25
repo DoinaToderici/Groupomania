@@ -9,14 +9,11 @@ class AuthenticationDataService {
   connectUser(data) {
     return http.post("/users/login", data);
   }
-  getProfilUser(id, data) {
-    return http.get(`/users/${id}`, data);
+  getProfilUser(id) {
+    return http.get(`/users/${id}`);
   }
   deleteUser(id) {
     return http.delete(`/users/${id}`);
-  }
-  update(id, data) {
-    return http.put(`/users/${id}`, data);
   }
 }
 

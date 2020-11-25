@@ -231,7 +231,6 @@ export default {
       this.message = "";
     },
   },
-
   mounted() {
     this.getPostById();
     this.userId = localStorage.getItem("userId");

@@ -29,7 +29,7 @@ const getAllPosts = async (req, res) => {
       ],
       order: [["createdAt", "DESC"]],
       limit: 5,
-      offset,
+      offset: offset,
     });
     return res.status(200).json({ posts });
   } catch (error) {

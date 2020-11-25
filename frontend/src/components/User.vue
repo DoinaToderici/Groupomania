@@ -59,7 +59,6 @@ export default {
       AuthentificationDataService.getProfilUser(id)
         .then((response) => {
           this.user = response.data.user;
-          console.log(this.user.password);
         })
         .catch((e) => {
           console.log(e);

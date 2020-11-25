@@ -22,13 +22,16 @@ let router = new Router({
       path: "/user/:id",
       name: "user",
       component: () => import("./components/User"),
+      meta: {
+        authentificated: true,
+      },
     },
     {
       path: "/",
       name: "posts",
       component: () => import("./components/PostsList"),
       meta: {
-        guest: true,
+        authentificated: true,
       },
     },
     {
@@ -36,7 +39,7 @@ let router = new Router({
       name: "posts",
       component: () => import("./components/PostsList"),
       meta: {
-        guest: true,
+        authentificated: true,
       },
     },
     {
@@ -44,7 +47,7 @@ let router = new Router({
       name: "post",
       component: () => import("./components/Post"),
       meta: {
-        guest: true,
+        authentificated: true,
       },
     },
     {
@@ -52,23 +55,15 @@ let router = new Router({
       name: "add-post",
       component: () => import("./components/AddArticle"),
       meta: {
-        guest: true,
+        authentificated: true,
       },
     },
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (localStorage.getItem("jwt") == null) {
-      next({
-        path: "/login",
-        params: { nextUrl: to.fullPath },
-      });
-    } else {
-      next();
-    }
-  } else if (to.matched.some((record) => record.meta.guest)) {
+
+router.beforeEach((to, _, next) => {
+  if (to.matched.some((record) => record.meta.authentificated)) {
     if (localStorage.getItem("jwt") !== null) {
       next();
     } else {

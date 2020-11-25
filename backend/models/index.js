@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 
 const db = {};
 
-//connexion DB avec sequelize
+//initializarea  DB avec sequelize
 sequelize = new Sequelize(process.env.DEV_DATABASE_URL, {
   url: process.env.DEV_DATABASE_URL,
   dialect: "postgres",
