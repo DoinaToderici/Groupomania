@@ -38,7 +38,7 @@
           <p class="error-message">{{ errors.password }}</p>
         </div>
       </div>
-      <p class="message">{{ message }}</p>
+      <p class="error-message error-message-gen">{{ message }}</p>
       <button
         class="d-flex justify-content-center m-auto col-lg-3 col-md-4 col-sm-12 btn cta-success"
         type="submit"
@@ -118,6 +118,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.message = "Mot de passe ou email incorrecte";
           console.log("error", error);
         });
     },
@@ -139,5 +140,9 @@ export default {
   font-size: 0.8rem;
   font-weight: bold;
   color: red;
+}
+
+.error-message-gen {
+  text-align: center !important;
 }
 </style>

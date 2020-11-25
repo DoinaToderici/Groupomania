@@ -61,7 +61,6 @@ let router = new Router({
   ],
 });
 
-
 router.beforeEach((to, _, next) => {
   if (to.matched.some((record) => record.meta.authentificated)) {
     if (localStorage.getItem("jwt") !== null) {

@@ -53,7 +53,7 @@
           type="password"
           id="password"
           name="password"
-          pattern="[A-Za-z]"
+          pattern="[A-Za-z0-9]+"
           minlength="8"
           class="form-control"
           v-model="user.password"
@@ -63,6 +63,8 @@
         />
         <p class="error-message">{{ errors.password }}</p>
       </div>
+      <p class="error-message error-message-gen">{{ message }}</p>
+
       <button
         class="d-flex justify-content-center m-auto col-lg-3 col-md-4 col-sm-12 btn cta-primary"
         @click="createUser"
@@ -93,12 +95,13 @@ export default {
         firstName: "",
         lastName: "",
       },
-
+      message: "",
       submitted: true,
     };
   },
   methods: {
     validateUserData() {
+      const onlyNumbersAndLetters = /^[A-Za-z0-9]+$/;
       const errors = {};
       if (this.user.email.length === 0 || !validator.isEmail(this.user.email)) {
         errors.email = "Veuillez renseigner un email";
@@ -106,6 +109,13 @@ export default {
 
       if (this.user.password.length === 0) {
         errors.password = "Veuillez renseigner un mot de passe";
+      }
+      if (
+        this.user.password.length > 0 &&
+        !onlyNumbersAndLetters.test(this.user.password)
+      ) {
+        errors.password =
+          "Le mdp doit contenir uniquement des lettres et chiffres";
       }
       if (this.user.firstName.length === 0) {
         errors.firstName = "Veuillez renseigner votre prenom";
@@ -136,9 +146,10 @@ export default {
         .then(() => {
           console.log("succes");
           this.$router.push("/login");
+          this.message = "Utilisateur enregistré";
         })
-        .catch((error) => {
-          console.log("error", error);
+        .catch(() => {
+          this.message = "L'utilisateur avec ce email existe déjà";
         });
     },
     resetErrors(e) {
@@ -155,5 +166,9 @@ export default {
   font-size: 0.8rem;
   font-weight: bold;
   color: red;
+}
+
+.error-message-gen {
+  text-align: center !important;
 }
 </style>

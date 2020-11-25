@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
       id: user.id,
     });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.errors[0].message });
   }
 };
 

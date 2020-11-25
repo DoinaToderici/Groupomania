@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const headers = require("./middleware/headers"); //middleware headers
+const helmet = require("helmet");
 
 //import routes
 const posts = require("./routes/posts");
@@ -14,6 +15,7 @@ db.sequelize.sync();
 //utilisation express
 const app = express();
 app.use(express.json());
+app.use(helmet());
 
 // middleware
 app.use(headers); //ajoutons des en-têtes à l'objet de réponse, afin que les origines (frontend et backend) puissent communiquer entre elles

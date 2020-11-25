@@ -28,7 +28,7 @@
       </div>
     </div>
     <div v-if="post.comments.length" class="mt-5">
-      <h4><b>Commentaires</b></h4>
+      <h2><b>Commentaires</b></h2>
       <hr />
       <div
         v-for="comment in post.comments"
@@ -260,6 +260,7 @@ export default {
       font-size: 3rem;
     }
   }
+
   .btn {
     font-size: 0.8rem;
     margin-top: 1rem;
@@ -268,8 +269,13 @@ export default {
       margin-right: 1rem;
     }
   }
+
   hr {
     margin: 2rem 0;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
   }
 
   .comment {
